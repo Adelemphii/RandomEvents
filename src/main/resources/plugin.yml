@@ -1,0 +1,4 @@
+name: RandomEvents
+version: '${project.version}'
+main: me.adelemphii.randomevents.RandomEvents
+api-version: 1.16

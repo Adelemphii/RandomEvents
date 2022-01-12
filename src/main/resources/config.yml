@@ -1,0 +1,7 @@
+# This makes it so that explosions can reach up to 128 POWER
+# If your server has a small amount of ram, be wary of this
+# Based on amount of Explosive Material in nearby players' inventories
+bigger_explosions: true
+
+# This will regen exploded blocks on a fixed interval
+regen_explosions: true
