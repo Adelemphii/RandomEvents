@@ -3,7 +3,8 @@ package me.adelemphii.randomevents.commands;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import me.adelemphii.randomevents.RandomEvents;
-import me.adelemphii.randomevents.util.SphereManager;
+import me.adelemphii.randomevents.util.ItemCollection;
+import me.adelemphii.randomevents.util.ShapeManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -45,13 +46,21 @@ public class CreateSphereCommand extends BaseCommand {
         Material material = Material.getMaterial(materialStr);
 
         if(type.equalsIgnoreCase("instant")) {
-            SphereManager.createSphere(player.getWorld(),
+            ShapeManager.createSphere(player.getWorld(),
                     player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ(),
                     radius, material);
         } else if(type.equalsIgnoreCase("delayed")) {
-            SphereManager.createSphereOverTime(player.getWorld(),
+            ShapeManager.createSphereOverTime(player.getWorld(),
                     player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ(),
                     radius, material, plugin);
         }
+    }
+
+    @Subcommand("get")
+    @CommandPermission("randomevents.create.sphere")
+    @Description("gets an item")
+    public void onGet(Player player) {
+        player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.HARDENED_SNOW);
+        player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.THANHIUM_BOMB);
     }
 }

@@ -1,8 +1,7 @@
 package me.adelemphii.randomevents.events;
 
 import me.adelemphii.randomevents.RandomEvents;
-import me.adelemphii.randomevents.util.SphereManager;
-import org.bukkit.Bukkit;
+import me.adelemphii.randomevents.util.ShapeManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -45,7 +44,7 @@ public class ExplosionEvents implements Listener {
                 event.setCancelled(true);
 
                 // TODO: make block regen work with this method
-                SphereManager.createSphere(player.getWorld(),
+                ShapeManager.createSphere(player.getWorld(),
                         player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ(),
                         explosionAmount, Material.AIR);
             }
