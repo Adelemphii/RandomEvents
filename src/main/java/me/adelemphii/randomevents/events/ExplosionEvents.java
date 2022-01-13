@@ -1,5 +1,7 @@
 package me.adelemphii.randomevents.events;
 
+import me.adelemphii.randomevents.RandomEvents;
+import me.adelemphii.randomevents.util.SphereManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -25,13 +27,27 @@ public class ExplosionEvents implements Listener {
             Material.END_CRYSTAL
     );
 
+    private final RandomEvents plugin;
+
+    public ExplosionEvents(RandomEvents plugin) {
+        this.plugin = plugin;
+    }
+
     @EventHandler
     public void onEntityExplosion(ExplosionPrimeEvent event) {
         for(Entity entity : event.getEntity().getNearbyEntities(4, 3, 4)) {
             if(entity instanceof Player player) {
                 int explosionAmount = calculateExplosionAmount(player);
-                Bukkit.broadcastMessage(explosionAmount + " " + player.getName());
-                player.getWorld().createExplosion(player.getLocation(), explosionAmount);
+                if(explosionAmount <= 3) {
+                    explosionAmount = 6;
+                }
+
+                event.setCancelled(true);
+
+                // TODO: make block regen work with this method
+                SphereManager.createSphere(player.getWorld(),
+                        player.getLocation().getBlockX(), player.getLocation().getBlockY(), player.getLocation().getBlockZ(),
+                        explosionAmount, Material.AIR);
             }
         }
     }
@@ -39,9 +55,10 @@ public class ExplosionEvents implements Listener {
     private int calculateExplosionAmount(Player player) {
         int explosionAmount = 0;
 
+        // Even 64 is fkin huge, but its funny LMAO :D
         for(ItemStack item : player.getInventory().getContents()) {
-            if(explosionAmount >= 128) {
-                return explosionAmount;
+            if(explosionAmount / 5 >= 64) {
+                return 64;
             }
 
             if(item == null || item.getType() == Material.AIR) {
@@ -53,6 +70,6 @@ public class ExplosionEvents implements Listener {
             }
         }
 
-        return explosionAmount;
+        return explosionAmount / 5;
     }
 }

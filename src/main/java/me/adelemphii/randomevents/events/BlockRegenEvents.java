@@ -1,7 +1,6 @@
 package me.adelemphii.randomevents.events;
 
 import me.adelemphii.randomevents.RandomEvents;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;

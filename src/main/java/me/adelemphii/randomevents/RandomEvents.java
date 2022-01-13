@@ -1,6 +1,7 @@
 package me.adelemphii.randomevents;
 
 import co.aikar.commands.BukkitCommandManager;
+import me.adelemphii.randomevents.commands.CreateSphereCommand;
 import me.adelemphii.randomevents.events.BlockRegenEvents;
 import me.adelemphii.randomevents.events.ExplosionEvents;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,18 +26,18 @@ public final class RandomEvents extends JavaPlugin {
     }
 
     private void registerCommands() {
-
+        commandManager.registerCommand(new CreateSphereCommand(this));
     }
 
     private void registerEvents() {
         if(getConfig().getBoolean("bigger_explosions")) {
             getLogger().info("Registered Bigger Explosions");
             getLogger().info("WARNING: Can crash servers if server doesn't have decent hardware. I.E. a free aternos instance.");
-            getServer().getPluginManager().registerEvents(new ExplosionEvents(), this);
+            getServer().getPluginManager().registerEvents(new ExplosionEvents(this), this);
         }
 
         if(getConfig().getBoolean("regen_explosions")) {
-            getLogger().info("Registered Regen Explosions");
+            getLogger().info("Registered Block Regen");
             getServer().getPluginManager().registerEvents(new BlockRegenEvents(this), this);
         }
     }
