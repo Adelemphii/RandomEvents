@@ -56,6 +56,7 @@ public class ExplosionEvents implements Listener {
         int explosionAmount = 0;
 
         // Even 64 is fkin huge, but its funny LMAO :D
+        // https://cdn.discordapp.com/attachments/694661573125472256/931040245909176350/2022-01-12_22.20.42.png
         for(ItemStack item : player.getInventory().getContents()) {
             if(explosionAmount / 5 >= 64) {
                 return 64;
