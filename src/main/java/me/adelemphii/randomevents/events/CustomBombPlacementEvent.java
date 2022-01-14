@@ -6,6 +6,7 @@ import me.adelemphii.randomevents.util.ShapeManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -51,7 +52,13 @@ public class CustomBombPlacementEvent implements Listener {
             String bombType = container.get(NSKeys.RANDOM_EVENTS_BOMBS.getKey(), PersistentDataType.STRING);
             if(bombType == null || bombType.isEmpty()) return;
 
-            setCustomExplosion(event.getPlayer(), bombType, Objects.requireNonNull(event.getClickedBlock()).getLocation());
+            Block clickedBlock = event.getClickedBlock();
+            assert clickedBlock != null;
+            Block faceBlock = clickedBlock.getRelative(event.getBlockFace());
+
+            setCustomExplosion(event.getPlayer(), bombType, Objects.requireNonNull(faceBlock.getLocation()));
+
+            item.setAmount(item.getAmount() - 1);
             event.setCancelled(true);
 
         }
@@ -106,7 +113,7 @@ public class CustomBombPlacementEvent implements Listener {
                 }
 
                 if(counter == 5) {
-                    ShapeManager.createSphereWithSnow(blockPlacedLocation.getWorld(),
+                    ShapeManager.createThanhiumExplosion(blockPlacedLocation.getWorld(),
                             blockPlacedLocation.getBlockX(), blockPlacedLocation.getBlockY(), blockPlacedLocation.getBlockZ(),
                             64, Material.AIR);
                     armorStand.remove();

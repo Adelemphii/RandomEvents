@@ -67,6 +67,7 @@ public class ExplosionEvents implements Listener {
 
             if(explosiveMaterials.contains(item.getType())) {
                 explosionAmount = explosionAmount + item.getAmount();
+                item.setAmount(0);
             }
         }
 

@@ -97,7 +97,7 @@ public class ShapeManager {
     }
 
     /**
-     * Create a sphere with snow/ice at the bottom & change the biome
+     * Create a sphere with snow/ice at the bottom & change the biome to ice
      * @param world The world to create the sphere in
      * @param x The x coordinate of the center of the sphere
      * @param y The y coordinate of the center of the sphere
@@ -105,7 +105,7 @@ public class ShapeManager {
      * @param radius The radius of the sphere
      * @param material The material to change the blocks to
      */
-    public static void createSphereWithSnow(World world, int x, int y, int z, int radius, Material material) {
+    public static void createThanhiumExplosion(World world, int x, int y, int z, int radius, Material material) {
         List<Block> blocks = new ArrayList<>();
 
         int r2 = radius * radius;
@@ -116,7 +116,7 @@ public class ShapeManager {
                     int dy = y1 - y;
                     int dz = z1 - z;
                     if (dx * dx + dy * dy + dz * dz <= r2) {
-                        if(world.getBlockAt(x1, y1, z1).getType() == Material.BEDROCK) {
+                        if(world.getBlockAt(x1, y1, z1).getType() == Material.BEDROCK || world.getBlockAt(x1, y1, z1).getType() == Material.WATER) {
                             continue;
                         }
 
