@@ -1,11 +1,12 @@
 package me.adelemphii.randomevents.events;
 
 import me.adelemphii.randomevents.RandomEvents;
-import me.adelemphii.randomevents.util.NSKeys;
+import me.adelemphii.randomevents.util.PluginKeys;
 import me.adelemphii.randomevents.util.ShapeManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -46,10 +47,10 @@ public class CustomBombPlacementEvent implements Listener {
         ItemStack item = event.getItem();
         ItemMeta meta = item.getItemMeta();
         // check the pdc of the item
-        if(meta.getPersistentDataContainer().has(NSKeys.RANDOM_EVENTS_BOMBS.getKey(), PersistentDataType.STRING)) {
+        if(meta.getPersistentDataContainer().has(PluginKeys.RANDOM_EVENTS_BOMBS.getKey(), PersistentDataType.STRING)) {
             PersistentDataContainer container = meta.getPersistentDataContainer();
 
-            String bombType = container.get(NSKeys.RANDOM_EVENTS_BOMBS.getKey(), PersistentDataType.STRING);
+            String bombType = container.get(PluginKeys.RANDOM_EVENTS_BOMBS.getKey(), PersistentDataType.STRING);
             if(bombType == null || bombType.isEmpty()) return;
 
             Block clickedBlock = event.getClickedBlock();
@@ -63,7 +64,7 @@ public class CustomBombPlacementEvent implements Listener {
 
         }
     }
-    
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         if(playersWhoDied.containsKey(event.getEntity().getUniqueId())) {
@@ -125,10 +126,11 @@ public class CustomBombPlacementEvent implements Listener {
                             nearbyPlayer.damage(Math.max(0, (32 - entity.getLocation().distance(blockPlacedLocation)) / 2));
                             
                             playersWhoDied.put(player.getUniqueId(), "thanhium bomb");
-                            
+
+                            nearbyPlayer.playSound(nearbyPlayer.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
                             nearbyPlayer.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                                    "&c&l&oThe ground rocks violently as a bomb of extraordinary power explodes nearby, a mushroom cloud engulfing the clouds!"));
-                            nearbyPlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', "Mist and smoke rise from the ground, and snow falls within the vicinity of the explosion!"));
+                                    "&c&lThe ground rocks violently as a bomb of extraordinary power explodes nearby, a mushroom cloud engulfing the clouds!"));
+                            nearbyPlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lMist and smoke rise from the ground, and snow falls within the vicinity of the explosion!"));
                             this.cancel();
                         }
                     }

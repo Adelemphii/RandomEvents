@@ -27,7 +27,7 @@ public class ItemCollection {
         ));
 
         // add pdc
-        meta.getPersistentDataContainer().set(NSKeys.RANDOM_EVENTS_ITEMS.getKey(), org.bukkit.persistence.PersistentDataType.INTEGER, 64);
+        meta.getPersistentDataContainer().set(PluginKeys.RANDOM_EVENTS_ITEMS.getKey(), org.bukkit.persistence.PersistentDataType.INTEGER, 64);
 
         hardenedSnow.setItemMeta(meta);
         return hardenedSnow;
@@ -50,7 +50,7 @@ public class ItemCollection {
         ));
 
         // add pdc
-        meta.getPersistentDataContainer().set(NSKeys.RANDOM_EVENTS_BOMBS.getKey(), PersistentDataType.STRING, "THANHIUM");
+        meta.getPersistentDataContainer().set(PluginKeys.RANDOM_EVENTS_BOMBS.getKey(), PersistentDataType.STRING, "THANHIUM");
 
         thaniumBomb.setItemMeta(meta);
         return thaniumBomb;

@@ -108,6 +108,10 @@ public class ShapeManager {
     public static void createThanhiumExplosion(World world, int x, int y, int z, int radius, Material material) {
         List<Block> blocks = new ArrayList<>();
 
+        // I tried optimizing this to do the calculations async but my brain is small,
+        // but it was really slow and not working
+        // feel free to PR and optimize it
+
         int r2 = radius * radius;
         for (int y1 = y - radius; y1 <= y + radius; y1++) {
             for (int z1 = z - radius; z1 <= z + radius; z1++) {
@@ -116,11 +120,11 @@ public class ShapeManager {
                     int dy = y1 - y;
                     int dz = z1 - z;
                     if (dx * dx + dy * dy + dz * dz <= r2) {
-                        if(world.getBlockAt(x1, y1, z1).getType() == Material.BEDROCK || world.getBlockAt(x1, y1, z1).getType() == Material.WATER) {
+                        Block block = world.getBlockAt(x1, y1, z1);
+
+                        if(block.getType() == Material.BEDROCK || block.getType() == Material.WATER) {
                             continue;
                         }
-
-                        Block block = world.getBlockAt(x1, y1, z1);
 
                         if(world.getBiome(block.getX(), block.getY(), block.getZ()) != Biome.ICE_SPIKES) {
                             world.setBiome(block.getX(), block.getY(), block.getZ(), Biome.ICE_SPIKES);
@@ -136,7 +140,7 @@ public class ShapeManager {
         if(!blocks.isEmpty()) {
             // for every block in the list check if the block under the block isn't air, and if so, change the block to snow/ice at random
             for(Block block : blocks) {
-                if(block.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+                if(block.getRelative(BlockFace.DOWN).getType() != Material.AIR && block.getRelative(BlockFace.DOWN).getType() != Material.WATER) {
                     ThreadLocalRandom random = ThreadLocalRandom.current();
                     int randomInt = random.nextInt(0, 100);
                     if(randomInt < 50) {

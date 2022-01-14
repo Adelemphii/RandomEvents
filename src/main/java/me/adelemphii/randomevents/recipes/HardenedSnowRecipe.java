@@ -2,8 +2,6 @@ package me.adelemphii.randomevents.recipes;
 
 import me.adelemphii.randomevents.RandomEvents;
 import me.adelemphii.randomevents.util.ItemCollection;
-import me.adelemphii.randomevents.util.NSKeys;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ShapedRecipe;

@@ -5,3 +5,6 @@ bigger_explosions: true
 
 # This will regen exploded blocks on a fixed interval
 regen_explosions: true
+
+# This makes custom bombs
+custom_bombs: true
