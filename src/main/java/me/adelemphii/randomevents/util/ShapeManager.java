@@ -109,7 +109,7 @@ public class ShapeManager {
         List<Block> blocks = new ArrayList<>();
 
         // I tried optimizing this to do the calculations async but my brain is small,
-        // but it was really slow and not working
+        // so it was really slow and not working
         // feel free to PR and optimize it
 
         int r2 = radius * radius;
