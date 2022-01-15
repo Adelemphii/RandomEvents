@@ -2,6 +2,7 @@ package me.adelemphii.randomevents.events;
 
 import me.adelemphii.randomevents.RandomEvents;
 import me.adelemphii.randomevents.util.ShapeManager;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -67,7 +68,9 @@ public class ExplosionEvents implements Listener {
 
             if(explosiveMaterials.contains(item.getType())) {
                 explosionAmount = explosionAmount + item.getAmount();
-                item.setAmount(0);
+                if(player.getGameMode() != GameMode.CREATIVE) {
+                    item.setAmount(0);
+                }
             }
         }
 

@@ -3,10 +3,7 @@ package me.adelemphii.randomevents.events;
 import me.adelemphii.randomevents.RandomEvents;
 import me.adelemphii.randomevents.util.PluginKeys;
 import me.adelemphii.randomevents.util.ShapeManager;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -43,6 +40,7 @@ public class CustomBombPlacementEvent implements Listener {
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         if(event.getItem() == null) return;
         if(event.getItem().getItemMeta() == null) return;
+        if(event.getPlayer().getGameMode() == GameMode.ADVENTURE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
 
         ItemStack item = event.getItem();
         ItemMeta meta = item.getItemMeta();
@@ -59,7 +57,9 @@ public class CustomBombPlacementEvent implements Listener {
 
             setCustomExplosion(event.getPlayer(), bombType, Objects.requireNonNull(faceBlock.getLocation()));
 
-            item.setAmount(item.getAmount() - 1);
+            if(event.getPlayer().getGameMode() != GameMode.CREATIVE) {
+                item.setAmount(item.getAmount() - 1);
+            }
             event.setCancelled(true);
 
         }
