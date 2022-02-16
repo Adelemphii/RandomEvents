@@ -2,11 +2,9 @@ package me.adelemphii.randomevents;
 
 import co.aikar.commands.BukkitCommandManager;
 import me.adelemphii.randomevents.commands.TestCommand;
-import me.adelemphii.randomevents.events.BlockRegenEvents;
-import me.adelemphii.randomevents.events.CustomBombPlacementEvent;
-import me.adelemphii.randomevents.events.CustomItemPlacementEvent;
-import me.adelemphii.randomevents.events.ExplosionEvents;
+import me.adelemphii.randomevents.events.*;
 import me.adelemphii.randomevents.recipes.HardenedSnowRecipe;
+import me.adelemphii.randomevents.recipes.SnowShovelRecipe;
 import me.adelemphii.randomevents.recipes.ThanhiumBombRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -55,6 +53,7 @@ public final class RandomEvents extends JavaPlugin {
         if(getConfig().getBoolean("custom_items")) {
             getLogger().info("Registered Custom Item events");
             getServer().getPluginManager().registerEvents(new CustomItemPlacementEvent(), this);
+            getServer().getPluginManager().registerEvents(new SnowShovelEvents(), this);
         }
     }
 
@@ -64,6 +63,8 @@ public final class RandomEvents extends JavaPlugin {
             getServer().addRecipe(new HardenedSnowRecipe().getRecipe());
             getServer().addRecipe(new ThanhiumBombRecipe().getRecipe());
         }
+
+        getServer().addRecipe(new SnowShovelRecipe().getRecipe());
     }
 
     public static RandomEvents getInstance() {

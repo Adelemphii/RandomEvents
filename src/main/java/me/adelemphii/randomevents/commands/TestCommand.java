@@ -64,6 +64,7 @@ public class TestCommand extends BaseCommand {
     public void onGet(Player player) {
         player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.HARDENED_SNOW);
         player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.THANHIUM_BOMB);
+        player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.SNOW_SHOVEL);
     }
 
     @Subcommand("circle")

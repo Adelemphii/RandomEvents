@@ -13,6 +13,25 @@ public class ItemCollection {
 
     public static final ItemStack THANHIUM_BOMB = createThanhiumBomb();
     public static final ItemStack HARDENED_SNOW = createHardenedSnow();
+    public static final ItemStack SNOW_SHOVEL = createSnowShovel();
+
+    private static ItemStack createSnowShovel() {
+        ItemStack snowShovel = new ItemStack(Material.IRON_SHOVEL);
+        ItemMeta meta = snowShovel.getItemMeta();
+        assert meta != null;
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.setDisplayName(ChatColor.ITALIC + "" + ChatColor.AQUA + "Snow Shovel");
+        meta.setLore(Arrays.asList(
+                ChatColor.GRAY + "A shovel made for shoveling snow.",
+                ChatColor.GRAY + "It is extremely durable and can be used",
+                ChatColor.GRAY + "to remove layers of snow."));
+
+        // add pdc
+        meta.getPersistentDataContainer().set(PluginKeys.RANDOM_EVENTS_ITEMS.getKey(), PersistentDataType.STRING, "snow_shovel");
+
+        snowShovel.setItemMeta(meta);
+        return snowShovel;
+    }
 
     private static ItemStack createHardenedSnow() {
         ItemStack hardenedSnow = new ItemStack(Material.SNOW_BLOCK);
