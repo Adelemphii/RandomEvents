@@ -1,13 +1,11 @@
 package me.adelemphii.randomevents.util;
 
 import me.adelemphii.randomevents.RandomEvents;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -157,5 +155,23 @@ public class ShapeManager {
                 }
             }
         }
+    }
+
+    // create a 2d circle horizontally surrounding a player, evenly retrieving locations from the circle
+    public static List<Location> getCircle(Player player, int radius) {
+        List<Location> locations = new ArrayList<>();
+
+        // make a circle and evenly distribute 8 points around the circle
+        for(int i = 0; i < 8; i++) {
+            double angle = (i * Math.PI * 2) / 8;
+            double x = Math.cos(angle) * radius;
+            double z = Math.sin(angle) * radius;
+
+            Location location = player.getLocation().clone();
+            location.setX(location.getX() + x);
+            location.setZ(location.getZ() + z);
+            locations.add(location);
+        }
+        return locations;
     }
 }

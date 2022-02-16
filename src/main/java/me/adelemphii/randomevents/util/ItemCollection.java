@@ -27,7 +27,7 @@ public class ItemCollection {
         ));
 
         // add pdc
-        meta.getPersistentDataContainer().set(PluginKeys.RANDOM_EVENTS_ITEMS.getKey(), org.bukkit.persistence.PersistentDataType.INTEGER, 64);
+        meta.getPersistentDataContainer().set(PluginKeys.RANDOM_EVENTS_ITEMS.getKey(), PersistentDataType.STRING, "hardened_snow");
 
         hardenedSnow.setItemMeta(meta);
         return hardenedSnow;

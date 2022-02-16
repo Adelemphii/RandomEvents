@@ -1,6 +1,5 @@
 package me.adelemphii.randomevents.events;
 
-import me.adelemphii.randomevents.RandomEvents;
 import me.adelemphii.randomevents.util.ShapeManager;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -26,12 +25,6 @@ public class ExplosionEvents implements Listener {
             Material.TNT_MINECART,
             Material.END_CRYSTAL
     );
-
-    private final RandomEvents plugin;
-
-    public ExplosionEvents(RandomEvents plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onEntityExplosion(ExplosionPrimeEvent event) {
@@ -73,7 +66,6 @@ public class ExplosionEvents implements Listener {
                 }
             }
         }
-
         return explosionAmount / 5;
     }
 }

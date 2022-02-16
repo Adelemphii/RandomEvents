@@ -1,9 +1,10 @@
 package me.adelemphii.randomevents;
 
 import co.aikar.commands.BukkitCommandManager;
-import me.adelemphii.randomevents.commands.CreateSphereCommand;
+import me.adelemphii.randomevents.commands.TestCommand;
 import me.adelemphii.randomevents.events.BlockRegenEvents;
 import me.adelemphii.randomevents.events.CustomBombPlacementEvent;
+import me.adelemphii.randomevents.events.CustomItemPlacementEvent;
 import me.adelemphii.randomevents.events.ExplosionEvents;
 import me.adelemphii.randomevents.recipes.HardenedSnowRecipe;
 import me.adelemphii.randomevents.recipes.ThanhiumBombRecipe;
@@ -30,14 +31,14 @@ public final class RandomEvents extends JavaPlugin {
     }
 
     private void registerCommands() {
-        commandManager.registerCommand(new CreateSphereCommand(this));
+        commandManager.registerCommand(new TestCommand(this));
     }
 
     private void registerEvents() {
         if(getConfig().getBoolean("bigger_explosions")) {
             getLogger().info("Registered Bigger Explosions");
             getLogger().info("WARNING: Can crash servers if server doesn't have decent hardware. I.E. a free aternos instance.");
-            getServer().getPluginManager().registerEvents(new ExplosionEvents(this), this);
+            getServer().getPluginManager().registerEvents(new ExplosionEvents(), this);
         }
 
         if(getConfig().getBoolean("regen_explosions")) {
@@ -49,6 +50,11 @@ public final class RandomEvents extends JavaPlugin {
             getLogger().info("Registered Custom Bomb events");
             getLogger().info("WARNING: Can crash servers if server doesn't have decent hardware. I.E. a free aternos instance.");
             getServer().getPluginManager().registerEvents(new CustomBombPlacementEvent(this), this);
+        }
+
+        if(getConfig().getBoolean("custom_items")) {
+            getLogger().info("Registered Custom Item events");
+            getServer().getPluginManager().registerEvents(new CustomItemPlacementEvent(), this);
         }
     }
 

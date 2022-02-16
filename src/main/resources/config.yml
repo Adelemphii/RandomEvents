@@ -8,3 +8,6 @@ regen_explosions: true
 
 # This makes custom bombs
 custom_bombs: true
+
+# This makes custom items that can be placed to do funny stuff
+custom_items: true

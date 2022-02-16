@@ -57,7 +57,7 @@ public class CustomBombPlacementEvent implements Listener {
 
             setCustomExplosion(event.getPlayer(), bombType, Objects.requireNonNull(faceBlock.getLocation()));
 
-            if(event.getPlayer().getGameMode() != GameMode.CREATIVE) {
+            if(event.getPlayer().getGameMode() == GameMode.SURVIVAL) {
                 item.setAmount(item.getAmount() - 1);
             }
             event.setCancelled(true);
