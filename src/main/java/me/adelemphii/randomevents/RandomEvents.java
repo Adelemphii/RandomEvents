@@ -55,6 +55,11 @@ public final class RandomEvents extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new CustomItemPlacementEvent(), this);
             getServer().getPluginManager().registerEvents(new SnowShovelEvents(), this);
         }
+
+        if(getConfig().getBoolean("stupid_events")) {
+            getLogger().info("Registering Stupid Events");
+            getServer().getPluginManager().registerEvents(new PokemonEvent(), this);
+        }
     }
 
     private void registerRecipes() {

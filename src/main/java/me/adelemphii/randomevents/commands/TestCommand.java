@@ -31,6 +31,14 @@ public class TestCommand extends BaseCommand {
         sender.sendMessage(ChatColor.GREEN + "/sph create <radius> <amount>");
     }
 
+    @Subcommand("reload")
+    @CommandPermission("randomevents.reload")
+    @Description("Reload the config, it wont register new events or recipes, so its pr pointless")
+    public void onReload(Player player) {
+        RandomEvents.getInstance().reloadConfig();
+        player.sendMessage(ChatColor.GREEN + "" + ChatColor.ITALIC + "Config reloaded.");
+    }
+
     @Subcommand("create")
     @CommandPermission("randomevents.create.sphere")
     @Description("Creates a sphere")
