@@ -174,4 +174,67 @@ public class ShapeManager {
         }
         return locations;
     }
+
+    public static List<Block> generateLineWithWeights(Location location, int weight, int radius) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+
+        int xCenter = location.getBlockX();
+        int yCenter = location.getBlockY();
+        int zCenter = location.getBlockZ();
+
+        List<Block> blocks = new ArrayList<>();
+
+        for(int i = 0; i < 200; i++) {
+            double t = random.nextInt() * 2 * Math.PI;
+            double r = Math.pow(random.nextFloat(), weight) * radius;
+
+            double newX = xCenter + r * Math.cos(t);
+            double newZ = zCenter + r * Math.sin(t);
+
+            Block block = new Location(location.getWorld(), Math.round(newX), yCenter, Math.round(newZ)).getBlock();
+            blocks.add(block);
+        }
+        return blocks;
+    }
+
+    public static List<Block> generateSphereWithWeights(Location location, int weight, int radius) {
+        // make a list of random points in a sphere
+        // every point has a weight and the higher the weight, the closer to the center they are
+        List<Block> blocks = new ArrayList<>();
+
+        int x = location.getBlockX();
+        int y = location.getBlockY();
+        int z = location.getBlockZ();
+        World world = location.getWorld();
+
+        if(world == null) {
+            return null;
+        }
+
+        // generate a full sphere
+        for(int x1 = x - radius; x1 <= x + radius; x1++) {
+            for(int y1 = y - radius; y1 <= y + radius; y1++) {
+                for(int z1 = z - radius; z1 <= z + radius; z1++) {
+                    int dx = x1 - x;
+                    int dy = y1 - y;
+                    int dz = z1 - z;
+                    int i = dx * dx + dy * dy + dz * dz;
+                    if(i <= radius * radius) {
+                        // get the distance from the center of the sphere
+                        double distance = Math.sqrt(i);
+                        // get the weight of the point
+                        double weightOfPoint = Math.pow(distance / radius, weight);
+                        // get a random number between 0 and 1
+                        double random = ThreadLocalRandom.current().nextDouble();
+                        // if the random number is more than the weight of the point, add the block to the list
+                        if(random > weightOfPoint) {
+                            blocks.add(world.getBlockAt(x1, y1, z1));
+                        }
+                    }
+                }
+            }
+        }
+        return blocks;
+    }
+
 }

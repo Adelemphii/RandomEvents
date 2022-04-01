@@ -6,6 +6,7 @@ import me.adelemphii.randomevents.RandomEvents;
 import me.adelemphii.randomevents.util.ItemCollection;
 import me.adelemphii.randomevents.util.ShapeManager;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
@@ -73,6 +74,22 @@ public class TestCommand extends BaseCommand {
         player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.HARDENED_SNOW);
         player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.THANHIUM_BOMB);
         player.getWorld().dropItemNaturally(player.getLocation(), ItemCollection.SNOW_SHOVEL);
+    }
+
+    @Subcommand("weighted")
+    @CommandPermission("randomevents.weighted")
+    @Description("Weighted sphere")
+    public void createWeightedSphere(Player player, int weight, int radius) {
+        List<Block> blocks = ShapeManager.generateSphereWithWeights(player.getLocation(), weight, radius);
+
+        if(blocks == null) {
+            player.sendMessage(ChatColor.RED + "Something went wrong");
+            return;
+        }
+
+        for(Block block : blocks) {
+            block.setType(Material.GLASS);
+        }
     }
 
     @Subcommand("circle")

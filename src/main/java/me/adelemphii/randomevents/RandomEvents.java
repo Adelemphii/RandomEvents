@@ -2,6 +2,8 @@ package me.adelemphii.randomevents;
 
 import co.aikar.commands.BukkitCommandManager;
 import me.adelemphii.randomevents.commands.TestCommand;
+import me.adelemphii.randomevents.corruption.CorruptionManager;
+import me.adelemphii.randomevents.corruption.events.PortalEvents;
 import me.adelemphii.randomevents.events.*;
 import me.adelemphii.randomevents.recipes.HardenedSnowRecipe;
 import me.adelemphii.randomevents.recipes.SnowShovelRecipe;
@@ -11,12 +13,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class RandomEvents extends JavaPlugin {
 
     private BukkitCommandManager commandManager;
+    private CorruptionManager corruptionManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         /* https://github.com/aikar/commands/wiki/Using-ACF */
         commandManager = new BukkitCommandManager(this);
+
+        corruptionManager = new CorruptionManager();
 
         registerRecipes();
         registerEvents();
@@ -33,6 +38,8 @@ public final class RandomEvents extends JavaPlugin {
     }
 
     private void registerEvents() {
+        getServer().getPluginManager().registerEvents(new PortalEvents(this), this);
+
         if(getConfig().getBoolean("bigger_explosions")) {
             getLogger().info("Registered Bigger Explosions");
             getLogger().info("WARNING: Can crash servers if server doesn't have decent hardware. I.E. a free aternos instance.");
@@ -74,5 +81,9 @@ public final class RandomEvents extends JavaPlugin {
 
     public static RandomEvents getInstance() {
         return JavaPlugin.getPlugin(RandomEvents.class);
+    }
+
+    public CorruptionManager getCorruptionManager() {
+        return corruptionManager;
     }
 }
